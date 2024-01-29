@@ -10,3 +10,6 @@ print(response)
 
 anime_response = response.json()
 pprint(anime_response)
+
+with open('anime.txt', 'w+') as text_file:
+    text_file.write(str(anime_response))
