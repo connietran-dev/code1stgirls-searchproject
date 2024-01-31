@@ -1,4 +1,6 @@
 import requests
+from pprint import pprint
+
 
 def search_anime_by_genre(genre):
     base_url = "https://api.jikan.moe/v4/anime"
@@ -18,15 +20,38 @@ def search_anime_by_genre(genre):
         # Parse the JSON response
         data = response.json()
 
+        pprint(data)
+
         # Display the results
         for anime in data['data']:
-            print(f"Title: {anime['attributes']['titles']['en']}")
-            print(f"Rating: {anime['attributes']['averageRating']}")
-            print("===")
+            # print(anime['popularity'])
+            print(f"Title: {anime['title']}")
+            print(f"Popularity: {anime['popularity']}")
+            # print(f"Rating: {anime['attributes']['averageRating']}")
+            # print("===")
+
 
     except requests.exceptions.RequestException as e:
         print(f"Error: {e}")
 
+#attributes look at alt
 
-# Usage example
-search_anime_by_genre(genre='Drama')
+
+# use this to search anime type to return number.
+def get_genre_id_by_name(genre_name):
+    url = "https://api.jikan.moe/v4/genres/anime"
+    response = requests.get(url)
+    genres = response.json()
+
+    for genre in genres['data']:
+        if genre['name'].lower() == genre_name.lower():
+            return genre['mal_id']
+    return None
+
+
+# Example usage
+genre_name = input('What anime them would you like to search?: ')
+genre_id = get_genre_id_by_name(genre_name)
+print(genre_id)
+
+search_anime_by_genre(genre=genre_id)
