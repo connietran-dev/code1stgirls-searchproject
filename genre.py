@@ -55,3 +55,23 @@ genre_id = get_genre_id_by_name(genre_name)
 print(genre_id)
 
 search_anime_by_genre(genre=genre_id)
+
+#to save to file
+with open('anime_genre.txt', 'w+') as text_file:
+    text_file.write(str(anime_response))
+
+#error handling
+    if response.status_code == 200:
+        anime_data = response.json()
+        return anime_data
+    elif response.status_code == 404:
+        print(f"No data found for the provided genre ID: {genre_id}")
+        return None
+    else:
+        print(f"Failed to retrieve data. Status code: {response.status_code}")
+        return None
+
+#1 tidy code and get into order
+#2 add function to save as txt
+#3 rank by popularity
+#4 error handling
