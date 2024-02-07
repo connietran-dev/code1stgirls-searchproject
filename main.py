@@ -50,7 +50,6 @@ def save_to_txt(data, genre_name):
             text_file.write(f"Popularity: {anime['popularity']}\n")
             text_file.write("===\n")
 
-# Example usage
 genre_name = input('What anime theme would you like to search?: ')
 search_anime_by_genre(genre_name)
 
